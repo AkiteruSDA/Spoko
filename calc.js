@@ -92,4 +92,13 @@ function KnockoutThreshold(fighter) {
     return table[fighter];
 };
 
-
+function Refill(fighter, round, roundSeconds, fighterHP, isSuper, totalDamageTaken) {
+    const threshold = KnockoutThreshold(fighter);
+    const base = BaseValue(fighter, round, isSuper);
+    const time = TimeValue(fighter, roundSeconds);
+    let v = (base + time + Math.floor(totalDamageTaken / 4) + Math.floor(fighterHP / 4)) - threshold;
+    if (v >= 0x51) {
+        return 0x50;
+    }
+    return v;
+};
