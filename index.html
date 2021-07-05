@@ -1,1 +1,58 @@
-<script src="calc.js"></script>
+
+<html>
+    <head>
+        <title>Super Punch-Out!! Refill Calculator by Akiteru</title>
+    </head>
+    <body>
+        <h1>Super Punch-Out!! Refill Calculator by Akiteru</h1>
+        <div>
+            Fighter:
+            <select id="fighter" style="width: 150px;">
+                <option value="0">Gabby Jay</option>
+                <option value="1">Bear Hugger</option>
+                <option value="2">Piston Hurricane</option>
+                <option value="3">Bald Bull</option>
+                <option value="4">Bob Charlie</option>
+                <option value="5">Dragon Chan</option>
+                <option value="6">Masked Muscle</option>
+                <option value="7">Mr. Sandman</option>
+                <option value="8">Aran Ryan</option>
+                <option value="9">Heike Kagero</option>
+                <option value="10">Mad Clown</option>
+                <option value="11">Super Machoman</option>
+                <option value="12">Narcis Prince</option>
+                <option value="13">Hoy Quarlow</option>
+                <option value="14">Rick Bruiser</option>
+                <option value="15">Nick Bruiser</option>
+            </select>
+        </div>
+        <div>
+            Round:
+            <select id="round" style="width: 50px;">
+                <option value="0">1</option>
+                <option value="1">2</option>
+            </select>
+        </div>
+        <div>
+            Duration of round (seconds):
+            <input type="number" id="duration">
+        </div>
+        <div>
+            Fighter HP remaining when knocked down:
+            <input type="number" id="fighter-hp">
+        </div>
+        <div>
+            Total damage taken during fight:
+            <input type="number" id="damage">
+        </div>
+        <div style="margin-bottom: 10px;">
+            Is punch super/rapid:
+            <input type="checkbox" id="super">
+        </div>
+        <div>
+            Refill:
+            <span id="refill"></span>
+        </div>
+        <script src="calc.js"></script>
+    </body>
+</html>

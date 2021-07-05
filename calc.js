@@ -1,22 +1,3 @@
-const Fighters = {
-    GABBY_JAY: 0,
-    BEAR_HUGGER: 1,
-    PISTON_HURRICANE: 2,
-    BALD_BULL: 3,
-    BOB_CHARLIE: 4,
-    DRAGON_CHAN: 5,
-    MASKED_MUSCLE: 6,
-    MR_SANDMAN: 7,
-    ARAN_RYAN: 8,
-    HEIKE_KAGERO: 9,
-    MAD_CLOWN: 10,
-    SUPER_MACHOMAN: 11,
-    NARCIS_PRINCE: 12,
-    HOY_QUARLOW: 13,
-    RICK_BRUISER: 14,
-    NICK_BRUISER: 15
-};
-
 function BaseValue(fighter, round, isSuper) {
     let table = [
         [0x30, 0x24, 0x18, 0x18],
@@ -96,9 +77,35 @@ function Refill(fighter, round, roundSeconds, fighterHP, isSuper, totalDamageTak
     const threshold = KnockoutThreshold(fighter);
     const base = BaseValue(fighter, round, isSuper);
     const time = TimeValue(fighter, roundSeconds);
-    let v = (base + time + Math.floor(totalDamageTaken / 4) + Math.floor(fighterHP / 4)) - threshold;
+    let v = base + time + Math.floor(totalDamageTaken / 4) + Math.floor(fighterHP / 4) - threshold;
     if (v >= 0x51) {
         return 0x50;
     }
     return v;
 };
+
+const fighterEl = document.querySelector("#fighter");
+const roundEl = document.querySelector("#round");
+const durationEl = document.querySelector("#duration");
+const fighterHPEl = document.querySelector("#fighter-hp");
+const damageEl = document.querySelector("#damage");
+const superEl = document.querySelector("#super");
+const refillEl = document.querySelector("#refill");
+
+function Update() {
+    let fighter = fighterEl.value = parseInt(fighterEl.value) || 0;
+    let round = roundEl.value = parseInt(roundEl.value) || 0;
+    let duration = durationEl.value = Math.max(0, Math.min(180, parseInt(durationEl.value))) || 0;
+    let fighterHP = fighterHPEl.value = Math.max(0, Math.min(80, parseInt(fighterHPEl.value))) || 0;
+    let damage = damageEl.value = Math.max(0, Math.min(80, parseInt(damageEl.value))) || 0;
+    let isSuper = superEl.checked = superEl.checked || false;
+    let refill = Refill(fighter, round, duration, fighterHP, isSuper, damage);
+    refillEl.innerText = `${refill} ${refill <= 0 ? "(Knockout)" : ""}`;
+};
+
+[fighterEl, roundEl, durationEl, fighterHPEl, damageEl, superEl].forEach((el) => {
+    el.addEventListener("change", Update);
+    el.addEventListener("input", Update);
+});
+
+Update();
